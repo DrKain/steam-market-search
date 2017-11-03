@@ -1,7 +1,7 @@
 SteamMarketSearch
 ============
 
-[![NPM](https://nodei.co/npm/SteamMarketSearch.png?downloads=true)](https://nodei.co/npm/SteamMarketSearch/)
+[![NPM](https://nodei.co/npm/steam-market-search.png?downloads=true)](https://nodei.co/npm/steam-market-search/)
 
 **What is this?**  
 ------------
