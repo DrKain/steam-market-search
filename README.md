@@ -1,11 +1,11 @@
-SteamMarketSearch
+steam-market-search
 ============
 
 [![NPM](https://nodei.co/npm/steam-market-search.png?downloads=true)](https://nodei.co/npm/steam-market-search/)
 
 **What is this?**  
 ------------
-SteamMarketSearch is a NodeJS package for retrieving market information of steam community items for a certain app.
+steam-market-search is a NodeJS package for retrieving market information of steam community items for a certain app.
 These items are Emoticons, Backgrounds, Trading cards and Booster Packs.
 
 Quick Start
