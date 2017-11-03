@@ -1,0 +1,35 @@
+{
+  "name": "SteamMarketSearch",
+  "version": "1.0.0",
+  "dependencies": {
+    "html-to-json": "^0.6.0",
+    "querystring": "^0.2.0",
+    "request": "^2.83.0"
+  },
+  "description": "Retrieves item market prices, images, names and types using the steam market search",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TryHardHusky/SteamMarketSearch"
+  },
+  "homepage": "https://github.com/TryHardHusky/SteamMarketSearch",
+  "bugs": {
+    "url": "https://github.com/TryHardHusky/SteamMarketSearch/issues"
+  },
+  "keywords": [
+    "steam",
+    "market",
+    "api",
+    "prices",
+    "search",
+    "emoticons",
+    "trading cards",
+    "backgrounds",
+    "booster packs"
+  ],
+  "author": "Kain (http://ksir.pw)",
+  "license": "MIT"
+}
