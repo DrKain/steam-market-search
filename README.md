@@ -14,12 +14,12 @@ Quick Start
 **Install in your app directory**
 
 ```shell
-$ npm install SteamMarketSearch --save
+$ npm install steam-market-search --save
 ```
 
 **Basic usage**
 ```javascript
-var SteamMarket = require('SteamMarketSearch');
+var SteamMarket = require('steam-market-search');
 
 // 311210 = Call of Duty: Black Ops III
 
