@@ -6,12 +6,11 @@ function tryParseResponse(input) {
     try {
         return JSON.parse(input);
     } catch (e) {
-        console.error(e);
         return {};
     }
 }
 
-function proxyCall(url, callback){
+function proxyCall(url, callback) {
     // TODO: This
 }
 
@@ -79,6 +78,7 @@ function getMarketItems(o, callback) {
     };
     delete o.appid;
     call('http://steamcommunity.com/market/search/render/?' + querystring.stringify(Object.assign(options, o)), function (err, res) {
+        if(Object.keys(res).length === 0) return callback({ success : false, message : "API Lockout!" }, null);
         if (res['success'] === false) return callback({success: false}, null);
         parseHTML(res['results_html'], function (e, r) {
             if (r.length === 0) e = "No Items. AppID might be incorrect.";

@@ -59,6 +59,13 @@ SteamMarket.getBackgrounds({ appid : 311210 }, function(err, res){});
 
 ```
 
+**API Lockout!**
+
+If you receive this error, You've been probably been temporarily blocked from the steam API for making too many requests in a short time.
+This will go away after a few minutes, But If you don't want to see it again limit the requests you make per minute.
+Proxy support will be added in the future.
+
+
 **Additional Notes**
 
 - Please report any issues [here](https://github.com/TryHardHusky/SteamMarketSearch/issues)
