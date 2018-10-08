@@ -13,11 +13,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/TryHardHusky/SteamMarketSearch"
+    "url": "https://github.com/DrKain/SteamMarketSearch"
   },
-  "homepage": "https://github.com/TryHardHusky/SteamMarketSearch",
+  "homepage": "https://github.com/DrKain/SteamMarketSearch",
   "bugs": {
-    "url": "https://github.com/TryHardHusky/SteamMarketSearch/issues"
+    "url": "https://github.com/DrKain/SteamMarketSearch/issues"
   },
   "keywords": [
     "steam",
