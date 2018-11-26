@@ -19,12 +19,19 @@ $ npm install steam-market-search --save
 
 **Basic usage**
 ```javascript
-var SteamMarket = require('steam-market-search');
+var SteamMarketSearch = require('../index');
 
 // 311210 = Call of Duty: Black Ops III
 
-SteamMarket.getItems({ appid : 311210 }, function(err, res){
-    console.log( JSON.stringify(res[0], null, 2) );
+SteamMarketSearch("311210").then(function(items){
+
+    // Print all items found
+    console.log(JSON.stringify(items, null, 2));
+
+}, function(err){
+
+    console.log("Error : " + err);
+
 });
 ```
 
@@ -32,40 +39,31 @@ SteamMarket.getItems({ appid : 311210 }, function(err, res){
 
 ```json
 {
-  "item_name": "Metro (Foil)",
-  "game_name": "Call of Duty: Black Ops III Foil Trading Card",
-  "price": {
-    "currency": "USD",
-    "normal_price": 0.52,
-    "sale_price": 0.5
-  },
-  "link": "http://steamcommunity.com/market/listings/753/311210-Metro%20%28Foil%29",
-  "image": "...long image url...",
-  "type": "Trading Card"
+        "name": "Stronghold",
+        "hash_name": "311210-Stronghold",
+        "sell_listings": 771,
+        "sell_price": 0.04,
+        "sale_price_text": "$0.03",
+        "appid": 753,
+        "item_type": "Trading Card",
+        "image": "https://steamcommunity-a.akamaihd.net/economy/image/IzMF03bk9WpSBq-S-ekoE33L-iLqGFHVaU25ZzQNQcXdA3g5gMEPvUZZEaiHLrVJRsl8vGuCUY7Cjc9ehDNVzDMFe3OqjCQrcex4NM6b8xHpruyKFHv7bHHNIiDeGQNqHrRdNGiP-Wak4bydQzHAF-4rQ1tWdaYC-20bbMiOPkc-gI8D_Gfh2VRzGVAqfddCdR2Ew3kSNrh4kXdCfJtRzCD3JJyP1A5jPhJoC7jvX7jFbIPwlSx3DhJjTKFIbImVvTuspsDnLPqHZlWIYvE",
+        "link": "https://steamcommunity.com/market/listings/753/311210-Stronghold"
 }
 ```
 
 **Filtering Results**
 
-You can get specific item types with the following functions
-
 ```javascript
 
-SteamMarket.getEmoticons({ appid : 311210 }, function(err, res){});
-SteamMarket.getCards({ appid : 311210 }, function(err, res){});
-SteamMarket.getBackgrounds({ appid : 311210 }, function(err, res){});
-
-// If you want to get all item types (including boosters), Just use .getItems()
+var emoticons = items.filter(function(a){ return a.type === "Emoticon"; });
 
 ```
 
-**API Lockout!**
+**Rate limits**
 
-If you receive this error, You've been probably been temporarily blocked from the steam API for making too many requests in a short time.
-This will go away after a few minutes, But If you don't want to see it again limit the requests you make per minute.
-Proxy support will be added in the future.
+Avoid making too many requests to the marketplace in a short time, Steam will throttle the amount of queries you can make every minute.
 
 
 **Additional Notes**
 
-- Please report any issues [here](https://github.com/TryHardHusky/SteamMarketSearch/issues)
+- Please report any issues [here](https://github.com/DrKain/SteamMarketSearch/issues)
