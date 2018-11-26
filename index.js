@@ -1,7 +1,5 @@
-const querystring = require('querystring');
 const fetch = require('node-fetch')
 
-const steam_url_market_search = 'https://steamcommunity.com/market/search/render/?'
 const steam_icon_url_route = 'https://steamcommunity-a.akamaihd.net/economy/image/'
 const steam_item_url_route = 'https://steamcommunity.com/market/listings/753/'
 
@@ -9,20 +7,9 @@ const steam_item_url_route = 'https://steamcommunity.com/market/listings/753/'
 
 module.exports = {
     async getMarketItems(appid) {
-        // build url parameters
-        const options = querystring.stringify({
-            query: '',
-            start: '0',
-            count: '50', // no game has more than 50 items, multi page is not required
-            search_descriptions: 0,
-            sort_column: 'price',
-            sort_dir: 'desc',
-            appid: '753', // this is the appid for steam, don't change it
-            'category_753_Game[]': 'tag_app_' + appid, // APPID of the items we are searching for
-            norender: 1
-        })
-
-        const market_items = await this.call(`${steam_url_market_search}${options}`)
+        const url = `https://steamcommunity.com/market/search/render/?search_descriptions=0&sort_column=default&sort_dir=desc&appid=${Number(appid)}&norender=1&count=500`
+        
+        const market_items = await this.call(url)
 
         return {
             count: market_items.length,
@@ -50,7 +37,6 @@ module.exports = {
 
         return items
     },
-
 
     pattern_finder(pattern) {
         const reg = /(Booster Pack|Trading Card|Emoticon|Profile Background)/g

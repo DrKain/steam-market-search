@@ -2,8 +2,7 @@
   "name": "steam-market-search",
   "version": "1.0.6",
   "dependencies": {
-    "node-fetch": "^2.3.0",
-    "querystring": "^0.2.0"
+    "node-fetch": "^2.3.0"
   },
   "description": "Retrieves item market prices, images, names and types using the steam market search",
   "main": "index.js",
