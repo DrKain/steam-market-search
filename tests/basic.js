@@ -1,27 +1,33 @@
-var SteamMarketSearch = require('../index');
+var SteamMarket = require('../index');
 
 // 311210 = Call of Duty: Black Ops III
 
-SteamMarketSearch("311210").then(function(items){
+// Search for community items like emoticons, trading cards, backgrounds and boosters
+SteamMarket.searchCommunity("311210").then(function(items){
+    console.log(JSON.stringify(items[0], null, 2));
+}, console.error);
 
-    // Print all items found
-    console.log(JSON.stringify(items, null, 2));
+/*
 
-    /* Output: {
-        "name": "Stronghold",
-        "hash_name": "311210-Stronghold",
-        "sell_listings": 771,
-        "sell_price": 0.04,
-        "sale_price_text": "$0.03",
-        "appid": 753,
-        "item_type": "Trading Card",
-        "image": "https://steamcommunity-a.akamaihd.net/economy/image/IzMF03bk9WpSBq-S-ekoE33L-iLqGFHVaU25ZzQNQcXdA3g5gMEPvUZZEaiHLrVJRsl8vGuCUY7Cjc9ehDNVzDMFe3OqjCQrcex4NM6b8xHpruyKFHv7bHHNIiDeGQNqHrRdNGiP-Wak4bydQzHAF-4rQ1tWdaYC-20bbMiOPkc-gI8D_Gfh2VRzGVAqfddCdR2Ew3kSNrh4kXdCfJtRzCD3JJyP1A5jPhJoC7jvX7jFbIPwlSx3DhJjTKFIbImVvTuspsDnLPqHZlWIYvE",
-        "link": "https://steamcommunity.com/market/listings/753/311210-Stronghold"
-    } */
+{
+  "name": "Seraph (Foil Trading Card)",
+  "hash_name": "311210-Seraph (Foil Trading Card)",
+  "sell_listings": 75,
+  "sell_price": 0.28,
+  "app_icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/753/135dc1ac1cd9763dfc8ad52f4e880d2ac058a36c.jpg",
+  "app_name": "Steam",
+  "asset_description": {
+    "appid": 753,
+    "classid": "1381041092",
+    "instanceid": "0",
+    "background_color": "",
+    "name_color": ""
+  },
+  "sale_price": 0.27,
+  "type": "Trading Card",
+  "rarity": "Foil",
+  "image": "https://steamcommunity-a.akamaihd.net/economy/image/IzMF03bk9WpSBq-S-ekoE33L-iLqGFHVaU25ZzQNQcXdA3g5gMEPvUZZEaiHLrVJRsl8vGuCUY7Cjc9ehDNVzDMFe3OqjCQrcex4NM6b8wDpoPKFWn36aTDBcnaPGQ0_T-UMN2HdqjOj4b6dQWnLErl_RQ8DKPYN9jBJaZ2KPhE5048Vu2u_0UZyDBItYPpPfQ68zykSYbx2kCIQcshXniylcJze0Fxkbk47X-viAOiTaNKklnwlWkxnS6EYesvL7zOq9ZYnnv61ww",
+  "link": "https://steamcommunity.com/market/listings//753/311210-Seraph%20(Foil%20Trading%20Card)"
+}
 
-
-}, function(err){
-
-    console.log("Error : " + err);
-
-});
+ */
