@@ -1,6 +1,6 @@
 {
   "name": "steam-market-search",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "dependencies": {},
   "description": "Retrieves item market prices, images, names and types using the steam market search",
   "main": "index.js",
@@ -9,11 +9,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/DrKain/SteamMarketSearch"
+    "url": "https://github.com/DrKain/steam-market-search"
   },
-  "homepage": "https://github.com/DrKain/SteamMarketSearch",
+  "homepage": "https://github.com/DrKain/steam-market-search",
   "bugs": {
-    "url": "https://github.com/DrKain/SteamMarketSearch/issues"
+    "url": "https://github.com/DrKain/steam-market-search/issues"
   },
   "keywords": [
     "steam",
