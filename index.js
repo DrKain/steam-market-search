@@ -11,6 +11,10 @@ module.exports = {
         type        : /(Booster Pack|Trading Card|Emoticon|Profile Background)/g,
         rarity      : /(Uncommon|Rare|Extraordinary|Precious|Common)/g
     },
+    types : {
+        // TODO: Better matching
+        community_rarity : ["Booster Pack", "Uncommon", "Rare", "Extraordinary", "Precious", "Common"]
+    },
     call : function(url){
         var self = this;
         return new Promise(function(resolve, reject){
@@ -42,9 +46,18 @@ module.exports = {
         // Linkify listing and icons
         item.image      = this.urls.image + (item['asset_description']['icon_url_large'] || item['asset_description']['icon_url']);
         item.link       = `${this.urls.listing}/${item['asset_description']['appid']}/${encodeURIComponent(item['asset_description']['market_hash_name'])}`;
+
         // Trading card foil?
-        if(item.type === "Trading Card")
+        if(item.type === "Trading Card"){
             item.rarity = item.name.indexOf("Foil Trading Card") > -1 ? "Foil" : "Normal";
+        } else {
+            // Fixing unmatched common items
+            if(!~this.types.community_rarity.indexOf(item.rarity)){
+                item.rarity = "Common";
+            }
+        }
+
+
 
         // Counter-Strike: Global Offensive
         if(item['asset_description']['appid'] === 730){
