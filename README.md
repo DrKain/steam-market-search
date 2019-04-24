@@ -45,7 +45,7 @@ SteamMarket.searchCommunity("311210").then(console.log, console.warn);
 
 # Search custom
 Search for items by another game, IE - Playerunknown's Battlegrounds.
-``javascript
+```javascript
 SteamMarket.search("578080", { find : "Trenchcoat" }).then(console.log, console.warn);
 ```
 
