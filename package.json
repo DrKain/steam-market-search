@@ -1,8 +1,8 @@
 {
   "name": "steam-market-search",
-  "version": "1.1.0",
+  "version": "1.1.2",
   "dependencies": {},
-  "description": "Retrieves item market prices, images, names and types using the steam market search",
+  "description": "A NodeJS package for searching the steam marketplace",
   "main": "index.js",
   "scripts": {
     "test": "node tests/basic.js"

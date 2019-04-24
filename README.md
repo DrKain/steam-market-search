@@ -5,13 +5,11 @@ steam-market-search
 
 **What is this?**  
 ------------
-steam-market-search is a NodeJS package for retrieving market information of steam community items for a certain app.
-These items are Emoticons, Backgrounds, Trading cards and Booster Packs.
+A NodeJS package for searching the steam marketplace
 
-# 1.0.7 Large changes
+# 1.1.2 changes
 ------------
-The 1.0.7 recode has changed how the page works, It's no longer limited to steamcommunity items. The structure has changed and it uses promises instead of callbacks.
-Please read the mini documentation below to understand how to properly use this package.
+It looks like the steam market changed and this package broke, So I've recoded it from scratch. Response cleaning is now optional. Use `searchTF2` and `searchCSGO` for the cleaned responses, Otherwise just use `search("730", options)`.
 
 Quick Start
 --------------
@@ -21,84 +19,35 @@ Quick Start
 ```shell
 $ npm install steam-market-search --save
 ```
-
-**Basic usage**
+then
 ```javascript
-var SteamMarket = require('../index');
+var SteamMarket = require("steam-market-search");
+```
 
+# Search CSGO
+CSGO weapons, skins, knives and such. For trading cards use `searchCommunity`
+```javascript
+SteamMarket.searchCSGO({ find : 'Death by Kitty' }).then(console.log, console.warn);
+```
+
+# Search TF2
+TF2 weapons, skins, hats and paints. For trading cards use `searchCommunity`
+```javascript
+SteamMarket.searchTF2({ find : 'Pride Scarf' }).then(console.log, console.warn);
+```
+
+# Search Steam Community
+All community items. These are trading cards, booster packs, gems, emoticons, backgrounds.
+```javascript
 // 311210 = Call of Duty: Black Ops III
-
-// Search for community items like emoticons, trading cards, backgrounds and boosters
-SteamMarket.searchCommunity("311210").then(function(items){
-    console.log(JSON.stringify(items[0], null, 2));
-}, console.error);
+SteamMarket.searchCommunity("311210").then(console.log, console.warn);
 ```
 
-**Output:**
-
-```json
-{
-  "name": "Seraph (Foil Trading Card)",
-  "hash_name": "311210-Seraph (Foil Trading Card)",
-  "sell_listings": 75,
-  "sell_price": 0.28,
-  "app_icon": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/753/135dc1ac1cd9763dfc8ad52f4e880d2ac058a36c.jpg",
-  "app_name": "Steam",
-  "asset_description": {
-    "appid": 753,
-    "classid": "1381041092",
-    "instanceid": "0",
-    "background_color": "",
-    "name_color": ""
-  },
-  "sale_price": 0.27,
-  "type": "Trading Card",
-  "rarity": "Foil",
-  "image": "https://steamcommunity-a.akamaihd.net/economy/image/IzMF03bk9WpSBq-S-ekoE33L-iLqGFHVaU25ZzQNQcXdA3g5gMEPvUZZEaiHLrVJRsl8vGuCUY7Cjc9ehDNVzDMFe3OqjCQrcex4NM6b8wDpoPKFWn36aTDBcnaPGQ0_T-UMN2HdqjOj4b6dQWnLErl_RQ8DKPYN9jBJaZ2KPhE5048Vu2u_0UZyDBItYPpPfQ68zykSYbx2kCIQcshXniylcJze0Fxkbk47X-viAOiTaNKklnwlWkxnS6EYesvL7zOq9ZYnnv61ww",
-  "link": "https://steamcommunity.com/market/listings//753/311210-Seraph%20(Foil%20Trading%20Card)"
-}, ...
+# Search custom
+Search for items by another game, IE - Playerunknown's Battlegrounds.
+``javascript
+SteamMarket.search("578080", { find : "Trenchcoat" }).then(console.log, console.warn);
 ```
 
-**Searching non-community items**
-Like CSGO, TF2, Dota ect.
-
-```javascript
-var SteamMarket = require('../index');
-
-// Search CSGO for P90 skins
-SteamMarket.search("730", { find : "P90 Death by Kitty" }).then(function(items){
-    console.log(JSON.stringify(items[0], null, 2));
-}, console.error);
-```
-
-**Multi-page Searches**
-
-It's not recommended to use low multipage intervals. Making too many requests will get you rate-limited on steam.
-Previous options will work fine.
-
-```javascript
-var SteamMarket = require('../index');
-
-// Load 3 pages of Minimal Wear P90 Skins for CSGO
-
-SteamMarket.searchMultipage("730", {
-    find : "P90 Minimal Wear",
-    multipage_amount : 3, // Load 3 pages then return results. Default=10
-    multipage_interval : 3000, // Wait 3 seconds between pages. Default=3000
-    multipage_logging : true // Log progress
-}).then(function(items){
-
-    // Console log all items found worth $1.00 - $5.00
-    console.log( items.filter(function(a){
-        return a.sale_price > 1.00 && a.sale_price < 5.00
-    }) );
-
-}, console.error);
-```
-
-**Rate limits**
-It's not recommended to use low multipage intervals. Making too many requests in a short amount of time will get you rate-limited on steam.
-
-**Additional Notes**
 
 - Please report any issues [here](https://github.com/DrKain/SteamMarketSearch/issues)
