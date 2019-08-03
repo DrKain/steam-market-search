@@ -50,4 +50,4 @@ SteamMarket.search("578080", { find : "Trenchcoat" }).then(console.log, console.
 ```
 
 
-- Please report any issues [here](https://github.com/DrKain/SteamMarketSearch/issues)
+- Please report any issues [here](https://github.com/DrKain/steam-market-search/issues)
