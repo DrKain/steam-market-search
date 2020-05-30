@@ -1,53 +1,146 @@
-steam-market-search
-============
+# Steam Market Search  
 
-[![NPM](https://nodei.co/npm/steam-market-search.png?downloads=true)](https://nodei.co/npm/steam-market-search/)
+[![NPM](https://img.shields.io/npm/v/steam-market-search)](https://www.npmjs.com/package/steam-market-search) [![NPM](https://img.shields.io/npm/dt/steam-market-search)](https://www.npmjs.com/package/steam-market-search) [![NPM](https://img.shields.io/npm/types/steam-market-search)](https://www.npmjs.com/package/steam-market-search)
 
-**What is this?**  
-------------
-A NodeJS package for searching the steam marketplace
 
-# 1.1.2 changes
-------------
-It looks like the steam market changed and this package broke, So I've recoded it from scratch. Response cleaning is now optional. Use `searchTF2` and `searchCSGO` for the cleaned responses, Otherwise just use `search("730", options)`.
+Steam Market Search is a NodeJS package to search the Steam Community Market. 
+Using this package you will be able to search and retrieve images, prices, descriptions, listing counts and other various information made available by each app.  
+  
+| Contents     | Type |  
+| :------------ | :- | 
+| [Getting Started](#getting-started) | Setup |   
+| [search(appid, options)](#searchappid-options) | Method |    
+| [Basic Search](#basic-search) | Code Example |   
+| [Advanced Search](#advanced-search) | Code Example |   
+| [setRequestOptions(options)](#setrequestoptionsrequestoptions) | Method |  
+| [Custom Headers](#custom-headers) | Code Example |   
+| [Shortcuts](#shortcuts) | Code Example |    
+| [Steam Item Types](#steam-item-types) | Table Data |   
+| [Multiple Filters](#multiple-filters) | Code Example |   
+| [SearchOptions](#type-searchoptions) | Type |   
 
-Quick Start
---------------
+# Getting Started 
 
-**Install in your app directory**
+Install via NPM   
+> npm install steam-market-search  
 
-```shell
-$ npm install steam-market-search --save
+Then you can require the package in your project using TypeScript  
+```typescript
+import { market } from 'steam-market-search';
 ```
-then
+or JavaScript  
 ```javascript
-var SteamMarket = require("steam-market-search");
+const market = require('steam-market-search').market;  
+```  
+
+# Usage  
+*Below is my attempt at documenting how to use this package. If you feel like you can do better please feel free to make a pull request.*  
+  
+### search(appid, options);  
+*Searches the marketplace for items.*  
+
+| Property | Description | Type | Default |
+| :- | :- | :- | :- |  
+| appid | The AppID of the game you want to fetch items for. Use 753 (steam) for items like trading cards. | number | none |  
+| options | Either a [SearchOptions](#type-searchoptions) object or a string to be used as the search query. | [SearchOptions](#type-searchoptions) or string | none |
+
+#### Basic Search
+*Search `730` (CSGO) for a gun skin called `Death by Kitty`.*  
+```typescript
+market.search(730, 'Death By Kitty').then(results => {
+    console.log(results);
+});
 ```
 
-# Search CSGO
-CSGO weapons, skins, knives and such. For trading cards use `searchCommunity`
-```javascript
-SteamMarket.searchCSGO({ find : 'Death by Kitty' }).then(console.log, console.warn);
-```
+#### Advanced Search
+*Search `290340` (Armello) for a `Dire Key` item using a custom item type*  
+```typescript
+market.search(290340, { query: 'Dire', 'category_290340_type[]': 'tag_key' }).then(results => {
+    console.log(results);
+});
 
-# Search TF2
-TF2 weapons, skins, hats and paints. For trading cards use `searchCommunity`
-```javascript
-SteamMarket.searchTF2({ find : 'Pride Scarf' }).then(console.log, console.warn);
-```
+```  
 
-# Search Steam Community
-All community items. These are trading cards, booster packs, gems, emoticons, backgrounds.
-```javascript
-// 311210 = Call of Duty: Black Ops III
-SteamMarket.searchCommunity("311210").then(console.log, console.warn);
-```
+### setRequestOptions(RequestOptions)  
+*Allows you to define custom [RequestOptions](https://nodejs.org/api/http.html#http_http_request_url_options_callback) like headers to be passed when making API Calls.*  
 
-# Search custom
-Search for items by another game, IE - Playerunknown's Battlegrounds.
-```javascript
-SteamMarket.search("578080", { find : "Trenchcoat" }).then(console.log, console.warn);
-```
+| Property | Description | Type | Default |
+| :- | :- | :- | :- |  
+| RequestOptions | An object of custom request options to be passed during the API Call. | [RequestOptions](https://nodejs.org/api/http.html#http_http_request_url_options_callback) | `{ }` | 
+  
+#### Custom Headers   
+*This is an example that uses setRequestOptions() to change the language of the search results*  
+  
+```typescript  
+market.setRequestOptions({
+    headers: {
+        'Accept-Language': 'de'
+    }
+});
+```   
+*Now all requests made on `market` will be in German.*  
+```typescript   
+market.search(730, 'Death by Kitty').then(results => console.log(results));  
+```  
+  
+# Shortcuts  
+*As a lot of people use this for apps like CS:GO, TF2 or Dota there are several shortcuts to quickly search that specific app.*  
+  
+```typescript
+market.searchCSGO('Death by Kitty');
+market.searchTF2('Crate Key');  
 
+// tag_item_class_4 = Emoticons
+market.searchCommunity({ query: 'Heart', 'category_753_item_class[]': 'tag_item_class_4' });
+```  
+  
+# Additional Examples  
+*Below are some more examples or explanations that may be helpful*  
+  
+### Steam Item Types  
+*When using `searchCommunity()` you may want to only fetch certain types of items. Below is a table listing each type and the value required to filter*  
 
-- Please report any issues [here](https://github.com/DrKain/steam-market-search/issues)
+| Type | Option | Value |  
+| :- | :- | :- |  
+| Trading Card | `category_753_item_class[]` | `tag_item_class_2` |
+| Emotion | `category_753_item_class[]` | `tag_item_class_4` |
+| Profile Background | `category_753_item_class[]` | `tag_item_class_3` |
+| Booster Pack | `category_753_item_class[]` | `tag_item_class_5` |
+| Sale Items (saliens) | `category_753_item_class[]` | `tag_item_class_10` |
+| Consumable | `category_753_item_class[]` | `tag_item_class_6` |  
+| Normal Cards | `category_753_cardborder[]` | `tag_cardborder_0` |  
+| Foil Cards | `category_753_cardborder[]` | `tag_cardborder_1` |  
+| Rarity (Common) | `category_753_droprate[]` | `tag_droprate_0` |    
+| Rarity (Uncommon) | `category_753_droprate[]` | `tag_droprate_1` |      
+| Rarity (Rare) | `category_753_droprate[]` | `tag_droprate_2` |        
+| Rarity (Extraordinary) | `category_753_droprate[]` | `tag_droprate_3` |  
+
+#### Multiple Filters    
+*The following example will search for any `Normal` or `Foil` `Trading Cards` that contain the word `Heart`*  
+
+```typescript  
+market.searchCommunity({
+    query: 'Heart',
+    'category_753_cardborder[]': [
+        'tag_cardborder_0', // Normal Border
+        'tag_cardborder_1'  // Foil Border
+    ],
+    'category_753_item_class[]': 'tag_item_class_2' // Trading Cards
+}).then(results => console.log(results));
+```  
+  
+#### Type: SearchOptions  
+*This is the options object you would pass instead of a string when searching*  
+
+| Property | Description | Type | Default |    
+| :- | :- | :- | :- |  
+| query | The search query | string | None |  
+| appid | The game AppID you want to find items for. | number | None |  
+| game_appid | The game AppID used when searching for steam items like Trading Cards. | null or number | `null` |  
+| start | Start at | number | None |  
+| count | Number of results to be returned in the search. | number | `50` |  
+| sort_column | Sort the results by price or quantity available | string | None |  
+| sort_dir | Sort the results ascending or descending | string | `asc` | 
+| search_descriptions | Allows your search query to match descriptions too | number | 0 | 
+| norender | Enables or disables HTML response. Changing this will likely prevent the search results from returning. | number | 1 | 
+| *custom* | Allows custom parameters like cateogry filters | string or array | None | 
