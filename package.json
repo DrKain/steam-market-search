@@ -1,6 +1,6 @@
 {
   "name": "steam-market-search",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A NodeJS package for searching the steam marketplace",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",

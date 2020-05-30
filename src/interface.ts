@@ -36,7 +36,7 @@ export interface SearchOptions {
 /**
  * Asset Descriptions used in SearchResult
  */
-export interface AssetDescriptions {
+export interface AssetDescription {
     /** AppID of the game this item is from */
     appid: number;
     classid: string;
@@ -89,7 +89,7 @@ export interface SearchResult {
      * A collection of additional information about the item.
      * May be undefined depending on the game
      */
-    asset_descriptions: AssetDescriptions;
+    asset_description: AssetDescription;
     /** Sale price of the item in USD */
     sale_price_text: string;
 }
