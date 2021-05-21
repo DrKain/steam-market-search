@@ -1,15 +1,12 @@
 {
     "name": "steam-market-search",
-    "version": "1.4.2",
+    "version": "1.4.3",
     "description": "A NodeJS package for searching the steam marketplace",
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
     "scripts": {
         "build": "tsc",
-        "lint": "tslint -p tsconfig.json",
         "prepare": "npm run build",
-        "prepublishOnly": "npm run lint",
-        "preversion": "npm run lint",
         "version": "git add -A src",
         "postversion": "git push && git push --tags"
     },

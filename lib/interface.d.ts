@@ -10,11 +10,6 @@ export interface SearchOptions {
      * to the game you want the cards from.
      */
     appid?: number;
-    /**
-     * The AppID of the game you want to fetch cards, boosters, emoticons, backgrounds for.
-     * appid must be 753 for this to work
-     */
-    game_appid?: number | null;
     start?: number;
     /** Number of results to be returned in the search. Defaults to 50 */
     count?: number;
