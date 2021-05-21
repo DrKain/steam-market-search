@@ -21,7 +21,7 @@ export class SteamMarket {
      */
     private mergeArray(key: string, arr: any[]) {
         const strs: any = [];
-        arr.forEach(alt => strs.push(`${key}=${alt}`));
+        arr.forEach((alt) => strs.push(`${key}=${alt}`));
         return strs.join('&');
     }
 
@@ -31,13 +31,12 @@ export class SteamMarket {
      * @param obj Object
      */
     private querystring(obj: SearchOptions): string {
-        return Object.keys(obj).map((key, index) => {
-            const prefix = (index !== 0 ? '&' : '?');
-            return prefix + (Array.isArray(obj[key]) ?
-                this.mergeArray(key, obj[key]) :
-                `${key}=${obj[key]}`
-            );
-        }).join('');
+        return Object.keys(obj)
+            .map((key, index) => {
+                const prefix = index !== 0 ? '&' : '?';
+                return prefix + (Array.isArray(obj[key]) ? this.mergeArray(key, obj[key]) : `${key}=${obj[key]}`);
+            })
+            .join('');
     }
 
     /**
@@ -53,7 +52,6 @@ export class SteamMarket {
             search_descriptions: 0,
             sort_column: 'price',
             sort_dir: 'desc',
-            game_appid: null,
             norender: 1,
             ...this.defaults,
             ...options
@@ -68,7 +66,7 @@ export class SteamMarket {
     private handle(res: IncomingMessage): Promise<Partial<SearchResult>[]> {
         return new Promise((resolve, reject) => {
             let body = '';
-            res.on('data', (chunk) => body += chunk);
+            res.on('data', (chunk) => (body += chunk));
             res.on('end', () => {
                 try {
                     const data = JSON.parse(body);
@@ -148,12 +146,10 @@ export class SteamMarket {
      * @param appid AppID of the game you want to search. Use 753 for Steam items like trading cards
      * @param options Search Options. Requires *at least* { query: 'Search Query' }
      */
-    public search(
-        appid: number, options: SearchOptions | string
-    ): Promise<Partial<SearchResult>[]> {
+    public search(appid: number, options: SearchOptions | string): Promise<Partial<SearchResult>[]> {
         if (typeof options === 'string') options = { query: options };
         return new Promise((resolve, reject) => {
-            const query = this.getQuery({ ...options as SearchOptions, appid });
+            const query = this.getQuery({ ...(options as SearchOptions), appid });
             this.call(this.$market + query).then(resolve, reject);
         });
     }
