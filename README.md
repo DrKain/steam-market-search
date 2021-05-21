@@ -114,6 +114,8 @@ market.searchCommunity({ query: 'Heart', 'category_753_item_class[]': 'tag_item_
 | Rarity (Uncommon) | `category_753_droprate[]` | `tag_droprate_1` |      
 | Rarity (Rare) | `category_753_droprate[]` | `tag_droprate_2` |        
 | Rarity (Extraordinary) | `category_753_droprate[]` | `tag_droprate_3` |  
+| Game | `category_753_Game[]` | `tag_app_APPID` |  
+
 
 #### Multiple Filters    
 *The following example will search for any `Normal` or `Foil` `Trading Cards` that contain the word `Heart`*  
@@ -129,6 +131,15 @@ market.searchCommunity({
 }).then(results => console.log(results));
 ```  
   
+#### Filter by game
+If you only want community items from a specific game you can filter them using the `category_753_Game[]` option.
+Like all options ending with square brackets you can pass multiple game appids at once.
+
+```js
+// Search for steam community items from the game "100% Orange Juice" 
+market.search(753, { 'category_753_Game[]': 'tag_app_282800', query: 'stars' });
+```
+  
 #### Type: SearchOptions  
 *This is the options object you would pass instead of a string when searching*  
 
@@ -136,7 +147,6 @@ market.searchCommunity({
 | :- | :- | :- | :- |  
 | query | The search query | string | None |  
 | appid | The game AppID you want to find items for. | number | None |  
-| game_appid | The game AppID used when searching for steam items like Trading Cards. | null or number | `null` |  
 | start | Start at | number | None |  
 | count | Number of results to be returned in the search. | number | `50` |  
 | sort_column | Sort the results by price or quantity available | string | None |  
