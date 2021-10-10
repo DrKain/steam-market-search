@@ -153,4 +153,4 @@ market.search(753, { 'category_753_Game[]': 'tag_app_282800', query: 'stars' });
 | sort_dir | Sort the results ascending or descending | string | `asc` | 
 | search_descriptions | Allows your search query to match descriptions too | number | 0 | 
 | norender | Enables or disables HTML response. Changing this will likely prevent the search results from returning. | number | 1 | 
-| *custom* | Allows custom parameters like cateogry filters | string or array | None | 
+| *custom* | Allows custom parameters like category filters | string or array | None | 
